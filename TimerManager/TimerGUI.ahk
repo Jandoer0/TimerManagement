@@ -4,7 +4,7 @@ CreateTimerWindow(timer) {
     global ActiveTimers
     
     ; Создаем новое окно
-    timer.TimeGui := Gui("+AlwaysOnTop +ToolWindow", "Таймер " timer.ID ": " timer.TaskName)
+    timer.TimeGui := Gui("+AlwaysOnTop +ToolWindow", "Таймер: " timer.TaskName)
     timer.TimeGui.SetFont("s10", "Arial")
     
     ; Заголовок
@@ -16,9 +16,7 @@ CreateTimerWindow(timer) {
     timer.TimeText := timer.TimeGui.Add("Text", "w280 h40 Center vTimeText", "00:00:00")
     timer.TimeGui.SetFont("s9", "Arial")
     
-    ; Информация
-    timer.StatusText := timer.TimeGui.Add("Text", "w280 Center", "Статус: Активен")
-    timer.TimeGui.Add("Text", "w280 Center", "ID: " timer.ID)
+    ; Информация (только начало времени, статус и ID убраны из интерфейса)
     timer.TimeGui.Add("Text", "w280 Center", "Начало: " A_Hour ":" A_Min ":" A_Sec)
     
     ; Кнопки управления
@@ -39,4 +37,7 @@ CreateTimerWindow(timer) {
     xPos := 50 + ((timer.ID - 1) * 20)
     yPos := 50 + ((timer.ID - 1) * 20)
     timer.TimeGui.Show("x" xPos " y" yPos)
+    
+    ; Сохраняем переменные для логики, но не показываем в интерфейсе
+    timer.StatusText := {Value: "Статус: Активен"} ; Заглушка для совместимости
 }
